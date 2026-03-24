@@ -34,7 +34,7 @@ function Square({ value, onSquareClick }) {
     );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
+function Board({ xIsNext, squares, onPlay, currentMove }) {
     function handleClick(i) {
         if (squares[i] || calculateWinner(squares)) return;
         const nextSquares = squares.slice();
@@ -50,6 +50,8 @@ function Board({ xIsNext, squares, onPlay }) {
     let status;
     if (winner) {
         status = "Winner: " + winner;
+    } else if (currentMove === 9) {
+        status = "Draw";
     } else {
         status = "Next player: " + (xIsNext ? "X" : "O");
     }
@@ -141,6 +143,7 @@ export default function Game() {
                 <Board
                     xIsNext={xIsNext}
                     squares={currentSquares}
+                    currentMove={currentMove}
                     onPlay={handlePlay}
                 />
             </div>
